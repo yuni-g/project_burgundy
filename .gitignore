@@ -1,0 +1,67 @@
+Steps to create a github project to share
+================================================================================
+
+1. Create your software project locally
+2. Create a github repo using web UI  (Without README, License and .gitignore)
+
+3. Open a terminal In your local project
+ cd /<your project>
+ git init
+ Add a .gitignore file (see notes below)
+
+4. Add a README file
+ touch README.md
+ git add README.md
+ git commit -m "first commit"
+
+5. Add Remote Repository
+ git remote add origin https://github.com/iggym/AnotherTest.git
+ git push -u origin master
+
+6. Add a Licence file, named LICENSE.md (from http://choosealicense.com/licenses/)
+ git commit -m "added ..... What we did, Wy we Did it, Reference materials"
+
+
+================================================================================
+Example Gitignore
+=====================
+# OS X
+.DS_Store
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+
+# CocoaPods
+Pods
+
+================================================================================
+
+Other ways to add .gitignore file. 
+
+After creating a new Git repo for a project, the next thing is to add a .gitignore file. 
+You can copy/paste from a previous project, or 
+use github/gitignore i.e copy https://github.com/iggym/gitignore/blob/master/Objective-C.gitignore
+ 
+Alternatively you can also use gitignore.io:
+Using gitignore.io:
+ add a function to your command-line environment that makes it easy to quickly grab the .gitignore file you need.
+ 
+For example, for an iPhone project, after initializing my repo, I can just run the following command:
+ gi objective-c >> .gitignore
+and a  new ignore file will be created for me and is ready to use. 
+You can find full instructions on how to use gitignore.io and set it up for command-line use at http://gitignore.io/cli.
