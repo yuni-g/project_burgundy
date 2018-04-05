@@ -4,8 +4,13 @@
 #include "setupPin.h"
 #include "blueLED.h"
 
-extern volatile unsigned char Timer0_count;
+#define PI 	3.14159265359
+#define SERVO_MAX		180 //degrees, OCR1A = 580
+#define SERVO_MIN		0 	//degrees, OCR1A = 180
+#define SERVO_SAFETY_N 	3 	//degrees, prevent servo from reaching extremes
+
 extern volatile unsigned char Timer1_count;
+
 
 void servoOnOff(unsigned char servo1, unsigned char servo2, unsigned char servo3)
 {
@@ -16,11 +21,9 @@ void servoOnOff(unsigned char servo1, unsigned char servo2, unsigned char servo3
 
 	if (servo2)
 		SERVO2_ON;
-		
 	else
 		SERVO2_OFF;
 		
-
 	if (servo3)
 		SERVO3_ON;
 	else
@@ -28,11 +31,33 @@ void servoOnOff(unsigned char servo1, unsigned char servo2, unsigned char servo3
 }
 
 
-void controlServo(unsigned int arr[3])
+unsigned int convertAngle(float rad)
+{
+	float deg;
+	int val;
+
+	// convert radians to degrees //
+	deg = rad*180/PI;
+
+	// set boundaries to protect mechanical system //
+	if (deg > (SERVO_MAX - 3))
+		deg = SERVO_MAX - 3;
+
+	else if (deg < (SERVO_MIN + 3))
+		deg = SERVO_MIN +3;
+
+	// convert degrees to a value readable by servo (i.e. OCR1A) //
+	val = deg/0.45; // 0.45 degrees per step resolution - using Timer1 //
+
+	return val;
+}
+
+
+void controlServo(unsigned int *arr)
 {
 	unsigned char count = 1;
-	unsigned char countReach = 1; //times signal needs to be sent to ensure servo moves to position
-
+	unsigned char countReach = 1; //no. of times signal needs to be sent to ensure servo moves to position
+	// it will not be needed once developed system to move by steps from pos. A to B
 	while(count)
 	{
 		if(Timer1_count==0)
@@ -73,7 +98,7 @@ void controlServo(unsigned int arr[3])
 					}
 
 				Timer1_count=0;
-				servoOnOff(0,0,0); //maybe not needed
+				//servoOnOff(0,0,0);
 			}
 	}
 }
