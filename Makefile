@@ -16,12 +16,14 @@
 #                   default_programmer = "stk500v2"
 #                   default_serial = "avrdoper"
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
+#/dev/cu.usbmodem1421
+#/dev/tty.usbserial-DN02MOXU
 
 DEVICE     = atmega328
-PORT 	   = /dev/cu.usbmodem1411
+PORT 	   = /dev/cu.usbmodem1421
 CLOCK      = 16000000
 PROGRAMMER = -c stk500v1 
-OBJECTS    = main.o ISR_burgundy.o setupTimers.o controlServo.o
+OBJECTS    = main.o ISR_burgundy.o setupTimers.o controlServo.o myUSART.o
 FUSES      = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
 
 # ATMega8 fuse bits used above (fuse bits for other devices are different!):
