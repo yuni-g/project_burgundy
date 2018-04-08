@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include "INCLUDES.h"
 
-#define SERVO_MAX_VAL 	520 //180 degrees
-#define SERVO_MIN_VAL	450 //90 degrees
+#define SERVO_MAX_VAL 	550 //0 degrees
+#define SERVO_MIN_VAL	400 //90 degrees
 
 
 extern volatile unsigned char Timer0_count;
@@ -20,7 +20,7 @@ int main()
 //need to create function or use pointer to get servo values from outside main
 bool i;
 unsigned int a;
-unsigned int b = 5;
+unsigned int b = 4;
 
 unsigned int servoVal[3] = {500,500,500};
 

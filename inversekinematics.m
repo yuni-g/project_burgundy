@@ -25,5 +25,5 @@ function th =  inversekinematics(x, y, z)
 
   if (th1 > th2); th = th1;
   else; th = th2; end
-
+  
 end
