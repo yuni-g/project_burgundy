@@ -20,7 +20,7 @@
 #/dev/tty.usbserial-DN02MOXU
 
 DEVICE     = atmega328
-PORT 	   = /dev/cu.usbmodem1421
+PORT 	   = /dev/tty.usbmodem1421
 CLOCK      = 16000000
 PROGRAMMER = -c stk500v1 
 OBJECTS    = main.o ISR_burgundy.o setupTimers.o controlServo.o myUSART.o

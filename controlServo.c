@@ -5,49 +5,23 @@
 #include "setupPin.h"
 #include "blueLED.h"
 
-
+#define START_POS 		380
 #define PI 	3.14159265359
-#define SERVO_MAX_VAL 	570 //180 degrees
-#define SERVO_MIN_VAL	390 //90 degrees
+#define SERVO_MAX_VAL 	570 //178 degrees
+#define SERVO_MIN_VAL	380 //92 degrees
 #define SERVO_SAFETY_VAL	3 	//degrees, prevent servo from reaching extremes
 #define TOP_VALUE_TIMER1 	4999 //Timer1 for 20ms in CTC mode
 
 extern volatile unsigned char Timer1_count;
 
-/////// check if MatLab value is ready //////
-bool matlabReady(void)
-{
-	unsigned char data = 0;
-	data = USARTreceive();
-
-	if (data == '<') // initiate sending data //
-		return true;
-	else
-		return false;
-}
-
-/////// receive values from MatLab and store into array //////////
-void servoFillArr(unsigned int *arr, char count)
-{
-	char i=0;
-	unsigned int sum = 0;
-
-	for (i=0;i<count;i++)
-	{
-		arr[i] = USARTreceive(); //receive data from MatLab
-		arr[i] += SERVO_MIN_VAL; //apply offset for servo
-		sum += arr[i];
-	}
-
-	arr[count+1]=TOP_VALUE_TIMER1-sum; // ensure 20 ms period //
-}
 
 
 /////// perform rotation of servos following sequential order //////////
 void controlServo(unsigned int *arr)
 {
-	//unsigned char count = 1;
-	//unsigned char countReach = 1; //no. of times signal needs to be sent to ensure servo moves to position
+	unsigned int sum;
+	unsigned char count = 1;
+	unsigned char countReach = 5; //no. of times signal needs to be sent to ensure servo moves to position
 	// it will not be needed once developed system to move by steps from pos. A to B
 	
 	//while(count)
@@ -72,24 +46,25 @@ void controlServo(unsigned int *arr)
 
 		else if (Timer1_count==3)
 			{
-				OCR1A = arr[3];
-				//OCR1A = 4999-(arr[0]+arr[1]+arr[2]); // 4999 ensures 20 ms period //
+				//OCR1A = arr[3];
+				sum=arr[0]+arr[1]+arr[2];
+				OCR1A = TOP_VALUE_TIMER1-sum; // 4999 ensures 20 ms period //
 				servoOnOff(0,0,0);
 				Timer1_count=0;
 			}
 
 		else if (Timer1_count>=4)
 			{
-				//count++;
+				count++;
 				
 				//ensure signal has been receied by servo before sending new position 
-				//if (count >= countReach)
-				//	{
-				//	count = 0;
-				//	}
+				if (count >= countReach)
+					{
+					count = 0;
+					}
 
 				Timer1_count=0;
-				//servoOnOff(0,0,0);
+				servoOnOff(0,0,0);
 			}
 	}
 }
