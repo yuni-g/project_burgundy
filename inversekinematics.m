@@ -24,6 +24,7 @@ function th =  inversekinematics(xyz)
   num1 = -F-real;
   num2 = -F+real;
   den= G-E;
+
   th1= atan2(num1,den)*2*180/(pi);
   th2= atan2(num2,den)*2*180/(pi);
   

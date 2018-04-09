@@ -12,9 +12,6 @@
 #define SERVO3_OFF 		PORTB &= ~(1<<SERVO3)
 
 
-//#define SERVO_MAX_VAL     580 //180 degrees
-//#define SERVO_MIN_VAL    380 //90 degrees
-
 ///// defined in pinSetup.h /////////
 /*
  #define SERVO1             PORTBx //pin 8

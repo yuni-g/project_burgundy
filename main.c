@@ -4,87 +4,56 @@
 #include <stdbool.h>
 #include "INCLUDES.h"
 
-#define SERVO_MAX_VAL 	520 //180 degrees
-#define SERVO_MIN_VAL	450 //90 degrees
-
+#define NUM_SERVOS		3
+#define SERVO_MAX_VAL 	570 //178 degrees
+#define SERVO_MIN_VAL	380 //92 degrees
+#define START_POS 		380
 
 extern volatile unsigned char Timer0_count;
 extern volatile unsigned char Timer1_count;
 
 
 
-
+void wait(int a)
+{
+	int i = 0;
+for(i=0;i<a;i++)
+_delay_ms(100);
+}
 
 int main()
 {
-//need to create function or use pointer to get servo values from outside main
-bool i;
-unsigned int a;
-unsigned int b = 5;
-
-unsigned int servoVal[3] = {500,500,500};
-
-sei();
+char i = 0;
+unsigned int servoValues[5] = {};// start position //
+int b = 550;
+unsigned int offset = 380;
+char data;
 DDRB = 0xFF;
-DDRD |= (1<<PD6);
-initTimer0();
+sei();
+startTimer1();
+wait(50);
+initUSART();
 
+//for (i=0;i<20;i++){controlServo(servoVal)};
+while ( !(UCSR0A & (1 << RXC0)))
+			{
+				servoValues[0] = b;
+				servoValues[1] = b;
+				servoValues[2] = b;
+				controlServo(servoValues);
+			}
 
 while(1)
 {
-
-	
-		startTimer1();
-
-		if (Timer0_count)
-		{
-
-		if (servoVal[0] >= SERVO_MAX_VAL) 
-				i = false;
-		else if (servoVal[0] <= SERVO_MIN_VAL)
-				i = true;
-
-		if (i)
+	for (i = 0; i<3; i++)
+	{
+		while ( !(UCSR0A & (1 << RXC0)))
 			{
-				servoVal[0]=a+b;
-				a = servoVal[0];
-				servoVal[1]=a;
-				servoVal[2]=a;
+				controlServo(servoValues);
 			}
 
-		else if (~i)
-			{
-				servoVal[0]=a-b;
-				a = servoVal[0];
-				servoVal[1]=a;
-				servoVal[2]=a;
-				LED_ON;
-			}
-
-		}
-
-		/*if (i==0)
-		{
-			servoVal[0]=450;
-			servoVal[1]=450;
-			i++;
-		}
-		else if (i==1)
-		{
-			servoVal[0]=400;
-			servoVal[1]=400;
-			i++;
-		
-		}
-		else if (i==2)
-		{
-			servoVal[0]=420;
-			servoVal[1]=420;
-			i = 0;
-		}*/
-		
-		controlServo(servoVal);
-
+		servoValues[i] = UDR0 + offset;
+	}
 }
 
 return 0;
