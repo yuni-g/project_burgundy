@@ -1,8 +1,11 @@
-function th =  inversekinematics(x, y, z)
-  wb = 50; % distance between the center to the servo on the base
-  wp = 10; % distance between the center to the servo on the EE
+function th =  inversekinematics(xyz)
+    x = xyz(:,1);
+    y = xyz(:,2);
+    z = xyz(:,3);
+  wb = 55; % distance between the center to the servo on the base
+  wp = 15; % distance between the center to the servo on the EE
   L =  100; % Length of the bicep
-  l = 185; % Length of the forearm
+  l = 150; % Length of the forearm
   
   a = wb-wp; % Variable for easier calculation
 
@@ -14,7 +17,7 @@ function th =  inversekinematics(x, y, z)
   
   real = sqrt(E.*E+F.*F-G.*G);
   if ~isreal(real)
-      fprintf('IK failed. (%d, %d, %d) is outside work space.\n',x,y,z);
+      fprintf('IK failed. (%d, %d, %d) is outside work space.\n',x',y',z');
       return
   end
   
@@ -23,8 +26,6 @@ function th =  inversekinematics(x, y, z)
   den= G-E;
   th1= atan2(num1,den)*2*180/(pi);
   th2= atan2(num2,den)*2*180/(pi);
-
-  if (th1 > th2); th = th1;
-  else; th = th2; end
-
-end
+  
+  th1(th1<0) = th1(th1<0) +360;
+  th = th1;
