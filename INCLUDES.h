@@ -2,7 +2,7 @@
 #define INCLUDES_H
 
 #include "setupTimers.h"
-#include "setupServo.h"
+#include "controlServo.h"
 #include "blueLED.h"
 #include "setupPin.h"
 

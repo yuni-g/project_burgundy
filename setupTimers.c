@@ -2,7 +2,7 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "setupTimers.h"
+#include "INCLUDES.h"
 
 
 /////// Timer 0 - Initialize ////////

@@ -31,7 +31,7 @@ char data;
 DDRB = 0xFF;
 sei();
 startTimer1();
-wait(50);
+//wait(50);
 initUSART();
 
 //for (i=0;i<20;i++){controlServo(servoVal)};

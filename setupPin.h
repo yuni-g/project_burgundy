@@ -6,16 +6,13 @@
 ///// setup using RedBoard (ArduinoUNO) pins //////
 
 ///// Blue Led for debug //////
-#define BLUELED			PORTB5 //pin 13
+// see blueLED.h for assigned pin
 
 //// Servos //////
-#define SERVO1			 PORTB0 //pin 8
-#define SERVO2			 PORTB3 //pin 11
-#define SERVO3			 PORTB4 //pin 12
-
+// see setupServo.h for assigned pin
 
 ///// Motor Driver - Vacuum Pump/////
-//#define
+// 
 
 
 

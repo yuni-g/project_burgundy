@@ -5,7 +5,7 @@
 #define BAUD_PRESCALE F_CPU / (USART_BAUDRATE * 16UL) - 1
 
 void initUSART();
-void USARTtransmit (char);
+void USARTtransmit(char);
 char USARTreceive();
 
 #endif

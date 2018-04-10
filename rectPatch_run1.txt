@@ -1,0 +1,26 @@
+ee483 hw 9 - Rectangular Patch Antenna
+
+Design specs:
+Rogers Corporation RO4003C
+resonant frequency 1.50 GHz 
+Rc feed = 50 Ohms 
+thickness, h = 0.8130 mm 
+relative permittivity, er = 3.3800 mm 
+
+
+	RUN 1
+
+Final design results:
+length, L = 5.4202 cm 
+width, W = 6.7526 cm 
+inset, yo = 1.6478 cm 
+width feed t.l., W0 = 0.1895 cm 
+notch, n = 0.0474 cm 
+
+Directivity, METHOD 1 : 6.3917 dBi 
+Directivity, METHOD 2 : 6.3556 dBi 
+The two methods agree within 0.04 dB 
+
+Estimated HPBW:
+E-plane = 124.61 degrees 
+H-plane = 59.01 dBi 

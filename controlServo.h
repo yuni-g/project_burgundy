@@ -19,4 +19,10 @@
 #define SERVO_MIN_VAL		380 //90 degrees
 #define TOP_VALUE_TIMER1 	4999 //Timer1 for 20ms in CTC mode
 
+void controlServo(unsigned int *arr);
+void servoOnOff(unsigned char servo1, unsigned char servo2, unsigned char servo3);
+
+
+
+
 #endif
